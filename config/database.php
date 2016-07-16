@@ -1,11 +1,7 @@
 <?php
 /* Connect to a MySQL database using driver invocation */
-$dsn = 'mysql:dbname=testdb;host=127.0.0.1';
-$user = 'dbuser';
-$password = 'dbpass';
+$DB_DSN = 'mysql:dbname=bc_camagru;host=127.0.0.1';
+$DB_USER = 'root';
+$DB_PASSWORD = 'root';
 
-try {
-	$dbh = new PDO($dsn, $user, $password);
-} catch (PDOException $e) {
-	echo 'Connection failed: ' . $e->getMessage();
-}
+
