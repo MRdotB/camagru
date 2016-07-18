@@ -3,6 +3,8 @@ CREATE TABLE `Users` (
 	`username` varchar(255) NOT NULL UNIQUE,
 	`email` varchar(320) NOT NULL UNIQUE,
 	`password` varchar(255) NOT NULL,
+	`verify` boolean DEFAULT FALSE,
+	`verif_link` int,
 	PRIMARY KEY (`id`)
 );
 

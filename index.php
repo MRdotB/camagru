@@ -3,7 +3,10 @@ include 'app/Router.class.php';
 include 'app/User.class.php';
 
 session_start();
-// basic test
+// Views
+Router::get('/', function() {
+	echo 'home';
+});
 //Users
 Router::post('/user/register', function() {
 	$data = [
@@ -31,6 +34,10 @@ Router::post('/user/login', function() {
 
 });
 Router::get('/user/logout', function() {
+
+});
+
+Router::get('/user/verify/:id', function($id) {
 
 });
 
@@ -82,4 +89,4 @@ Router::get('/images/:id', function($id) {
 
 Router::dispatch();
 //echo '<br>';
-//Router::debug();
+Router::debug();
