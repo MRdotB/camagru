@@ -7,6 +7,14 @@ session_start();
 Router::get('/', function() {
 	echo 'home';
 });
+Router::get('/login', function() {
+	echo 'home';
+});
+Router::get('/register', function() {
+	echo 'home';
+});
+
+
 //Users
 Router::post('/user/register', function() {
 	$data = [
@@ -16,9 +24,24 @@ Router::post('/user/register', function() {
 	];
 
 	$user = new User();
-	$user->register($data);
+	if ($user->register($data)) {
+		echo 'register';
+	} else {
+		echo 'FAIL register';
+	}
 });
+Router::get('/user/verify/:id', function($id) {
+	$data = [
+		'verif_link' => $id,
+	];
 
+	$user = new User();
+	if ($user->verify($data)) {
+		echo 'verify';
+	} else {
+		echo 'FAIL verify';
+	}
+});
 Router::post('/user/login', function() {
 	$data = [
 		'username' => $_POST['username'],
@@ -29,64 +52,40 @@ Router::post('/user/login', function() {
 	if ($user->login($data)) {
 		echo 'logged';
 	} else {
-		echo 'error';
+		echo 'FAIL';
 	}
+});
+Router::post('/user/reset/:any', function($name) {
+	$data = [
+		'username' => $name
+	];
 
+	$user = new User();
+	if ($user->reset_password_send($data)) {
+		echo 'reset';
+	} else {
+		echo 'FAIL';
+	}
+});
+Router::get('/user/reset/:id', function($id) {
+	$data = [
+		'verif_password' => $id
+	];
+
+	$user = new User();
+	if ($user->reset_password($data)) {
+		echo 'reset';
+	} else {
+		echo 'FAIL';
+	}
 });
 Router::get('/user/logout', function() {
-
+	$user = new User();
+	$user->logout();
+	echo 'logout';
 });
 
-Router::get('/user/verify/:id', function($id) {
+//Images
 
-});
-
-Router::get('/', function() {
-	echo 'Get to /';
-	$data = [
-		'username' => 'baptiste',
-		'email' => 'baptiste.chaleil@gmail.com',
-		'password' => 'Onizuka75'
-	];
-	$user->register($data);
-});
-
-Router::post('/login', function() {
-	print_r($_POST);
-	echo 'Post to /login';
-});
-
-Router::put('/', function() {
-if ($_SERVER['REQUEST_METHOD'] == 'PUT')
-{
-	parse_str(file_get_contents("php://input"), $_PUT);
-
-	foreach ($_PUT as $key => $value)
-	{
-		unset($_PUT[$key]);
-
-		$_PUT[str_replace('amp;', '', $key)] = $value;
-	}
-
-	$_REQUEST = array_merge($_REQUEST, $_PUT);
-}
-	print_r($_PUT);
-	echo 'Put to /';
-});
-
-Router::patch('/', function() {
-	echo 'Patch to /';
-});
-
-Router::delete('/', function() {
-	echo 'Delete to /';
-});
-
-Router::get('/images/:id', function($id) {
-	echo 'The slug is: ' . $id;
-});
-
-
+//Router::debug();
 Router::dispatch();
-//echo '<br>';
-Router::debug();
