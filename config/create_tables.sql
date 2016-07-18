@@ -5,6 +5,7 @@ CREATE TABLE `Users` (
 	`password` varchar(255) NOT NULL,
 	`verify` boolean DEFAULT FALSE,
 	`verif_link` int,
+	`verif_password` int DEFAULT 0,
 	PRIMARY KEY (`id`)
 );
 
