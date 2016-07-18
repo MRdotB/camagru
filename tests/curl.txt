@@ -1,0 +1,2 @@
+curl -X POST -F "username=mrdotb" -F "password=Carlos93" -F "email=baptiste.chaleil@gmail.com" http://e3r13p13.42.fr:8080/user/register
+curl -X POST -F "username=mrdotb" -F "password=Carlos93" http://e3r13p13.42.fr:8080/user/login
