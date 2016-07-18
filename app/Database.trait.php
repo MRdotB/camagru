@@ -1,6 +1,6 @@
 <?php
 trait Database {
-	public function connect() {
+	private function connect() {
 		include 'config/database.php';
 
 		try {
