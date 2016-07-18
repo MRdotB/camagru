@@ -37,6 +37,14 @@ trait RouterUtility {
 							return $action;
 						}
 					}
+				} else if ($index = array_search(':any', $uri_ref)) {
+					if (self::array_cmp_skip($uri_ref, $uri_arg, $index)) {
+						if (preg_match('/.*/', $uri_arg[$index])) {
+							$action['callback'] = $route['callback'];
+							$action['args'][] = $uri_arg[$index];
+							return $action;
+						}
+					}
 				}
 			}
 		}
