@@ -1,0 +1,113 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+.rack {
+	display: flex;
+}
+header {
+	background-color: #333;
+	border-color: #080808;
+}
+#logo {
+	color: #9d9d9d;
+	margin: 0px;
+	padding: 0px;
+}
+#main {
+	min-height: 800px;
+	display: -webkit-flex;
+	display:         flex;
+	-webkit-flex-flow: row;
+	flex-flow: row;
+}
+#main > article {
+	border: 1px solid #cccc33;
+	background: #eee;
+	-webkit-flex: 3 1 60%;
+	flex: 3 1 60%;
+	-webkit-order: 2;
+	order: 2;
+}
+#video-container {
+	display: inline-block;
+	width: 640px;
+	height: 480px;
+	position: relative;
+}
+#video {
+	position: absolute;
+	z-index: 1;
+}
+#canvas-container {
+	display: inline-block;
+	width: 640px;
+	height: 480px;
+	position: relative;
+}
+#canvas {
+	position: absolute;
+	z-index: 1;
+}
+.thug {
+	position: absolute;
+	z-index: 2;
+}
+.sunglass {
+	top: 110px;
+	left: 270px;
+}
+.join {
+	top: 230px;
+	left: 380px;
+}
+.chaine {
+
+}
+.hide {
+	opacity: 0;
+}
+.thumbnail {
+	display: inline-block;
+	width: 200px;
+}
+#main > nav {
+	border: 1px solid #8888bb;
+	background: #ccccff;
+	-webkit-flex: 1 6 20%;
+	flex: 1 6 20%;
+	-webkit-order: 1;
+	order: 1;
+}
+
+#main > aside {
+	border: 1px solid #8888bb;
+	background: #ccccff;
+	-webkit-flex: 1 6 20%;
+	flex: 1 6 20%;
+	-webkit-order: 3;
+	order: 3;
+}
+
+header, footer {
+	display: block;
+	min-height: 100px;
+}
+
+@media all and (max-width: 640px) {
+	#main, #page {
+		-webkit-flex-flow: column;
+		flex-flow: column;
+	}
+
+	#main > article, #main > nav, #main > aside {
+		-webkit-order: 0;
+		order: 0;
+	}
+
+	#main > nav, #main > aside, header, footer {
+		min-height: 50px;
+		max-height: 50px;
+	}
+}
+
