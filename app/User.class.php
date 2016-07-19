@@ -1,6 +1,7 @@
 <?php
-include 'Database.trait.php';
-include 'Mail.trait.php';
+
+require_once('Database.trait.php');
+require_once('Mail.trait.php');
 
 class User {
 	use Database, Mail;
