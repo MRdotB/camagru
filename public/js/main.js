@@ -7,6 +7,9 @@
 		cover		= document.querySelector('#cover'),
 		canvas	= document.querySelector('#canvas'),
 		ctx 		= canvas.getContext('2d'),
+		sunglasses = document.querySelector('#sunglasses'),
+		join		= document.querySelector('#join'),
+		collier = document.querySelector('#collier'),
 		photo		= document.querySelector('#photo'),
 		shoot		= document.querySelector('#shoot'),
 		upload	= document.querySelector('#upload'),
@@ -58,20 +61,27 @@
 	function ajaxUpload() {
 		var xhr = new XMLHttpRequest();
 		var formData = new FormData();
-			xhr.onload = function () {
-				if (xhr.status >= 200 && xhr.status <= 400) {
-					var data = JSON.parse(xhr.responseText);
-					var img = document.createElement("img");
-					img.src = data.path;
-					img.className = 'thumbnail';
-					sidebar.appendChild(img);
-				} else {
-					console.log(new Error(xhr.responseBody));
+		xhr.onload = function () {
+			if (xhr.status >= 200 && xhr.status <= 400) {
+				var data = JSON.parse(xhr.responseText);
+				if (data['error']) {
+					return false;
 				}
-			};
+				var img = document.createElement("img");
+				img.src = data.path;
+				img.className = 'thumbnail';
+				sidebar.insertBefore(img, sidebar.firstChild);
+			} else {
+				console.log(new Error(xhr.responseBody));
+			}
+		};
 
 		canvas.toBlob(function(blob) {
 			formData.append('pictures[]', blob, 'blob.png');
+			formData.append('sunglass', sunglasses.checked);
+			formData.append('join', join.checked);
+			console.log('sun', sunglasses.checked);
+			console.log('join', join.checked);
 			xhr.open('POST', '/image/upload', true);
 			xhr.send(formData);
 		});
@@ -79,6 +89,7 @@
 
 	function handleImage(e){
 		webcam.style.opacity = 0;
+		document.getElementById('video-container').style.opacity = 0;
 		document.getElementById('step2').style.opacity = 1;
 		var reader = new FileReader();
 		reader.onload = function(event){
@@ -112,6 +123,35 @@
 		ajaxUpload();
 		e.preventDefault();
 	}, false);
+
+	sunglasses.addEventListener('change', function(e) {
+		var sunglasses = document.querySelectorAll('.sunglass');
+		e.preventDefault();
+			[].forEach.call(sunglasses, function(sunglass) {
+				if (e.target.checked) {
+					sunglass.style.opacity = 1;
+				} else {
+					sunglass.style.opacity = 0;
+				}
+			});
+	}, false);
+
+	join.addEventListener('change', function(e) {
+		e.preventDefault();
+		var joins = document.querySelectorAll('.join');
+		e.preventDefault();
+		if (e.target.checked) {
+			[].forEach.call(joins, function(join) {
+				join.style.opacity = 1;
+			});
+		} else {
+			[].forEach.call(joins, function(join) {
+				join.style.opacity = 0;
+			});
+		}
+	}, false);
+
+
 
 	sidebar.addEventListener('click', function(e) {
 		e.preventDefault();
