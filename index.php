@@ -10,6 +10,11 @@ Router::get('/', function() {
 	$images = $image->get_user_image();
 	include('public/views/home.php');
 });
+Router::get('/gallery', function() {
+	$image = new Image();
+	$images = $image->get_images();
+	include('public/views/gallery.php');
+});
 Router::get('/login', function() {
 	echo 'home';
 });
@@ -90,12 +95,16 @@ Router::get('/user/logout', function() {
 
 //Images
 Router::post('/image/upload', function() {
+	$data = [
+		'sunglass' => $_POST['sunglass'],
+		'join' => $_POST['join']
+	];
 	$image = new Image();
 	header('Content-Type: application/json');
-	if ($result = $image->montage()) {
+	if ($result = $image->montage($data)) {
 		echo json_encode(['path' => $result]);
 	} else {
-		echo json_encode(['error' => 'message d\'erreur lol.']);
+		echo json_encode(['error' => 'true']);
 	}
 });
 Router::post('/image/delete/:id', function($id) {
