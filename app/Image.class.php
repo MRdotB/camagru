@@ -9,9 +9,22 @@ Class Image {
 	public function __construct() {
 		$this->db = $this->connect();
 	}
+	public function get_images() {
+		try {
+			$stmt = $this->db->prepare("SELECT * FROM Images ORDER BY id DESC");
+			$stmt->bindparam(':user_id', $_SESSION['id']);
+			$stmt->execute(); 
+			$images = $stmt->fetchAll();
+			return $images;
+		} catch(PDOException $e) {
+			echo $e->getMessage();
+			return false;
+		}
+	}
+
 	public function get_user_image() {
 		try {
-			$stmt = $this->db->prepare("SELECT path, id FROM Images WHERE user_id=:user_id");
+			$stmt = $this->db->prepare("SELECT path, id FROM Images WHERE user_id=:user_id ORDER BY id DESC");
 			$stmt->bindparam(':user_id', $_SESSION['id']);
 			$stmt->execute(); 
 			$images = $stmt->fetchAll();
@@ -54,23 +67,30 @@ Class Image {
 		}
 	}
 
-	public function montage() {
+	public function montage($data) {
+		if ($data['sunglass'] == false && $data['join'] == false) {
+			return false;
+		}
 		foreach ($_FILES["pictures"]["error"] as $key => $error) {
 			if ($error == UPLOAD_ERR_OK) {
 				$tmp_name = $_FILES["pictures"]["tmp_name"][$key];
 				$name = $_FILES["pictures"]["name"][$key];
 				$t = imagecreatefrompng($tmp_name);
-				$sunglasses = imagecreatefrompng('public/img/thugsunglasses.png');
-				$join = imagecreatefrompng('public/img/thugjoin.png');
 				imagealphablending($t, true);
 				imagesavealpha($t, true);
-				imagecopyresampled($t, $sunglasses, 270, 110, 0, 0, 200, 40, 200, 40);
-				imagecopyresampled($t, $join, 380, 230, 0, 0, 100, 81, 100, 81);
+				if ($data['sunglass'] === 'true') {
+					$sunglasses = imagecreatefrompng('public/img/thugsunglasses.png');
+					imagecopyresampled($t, $sunglasses, 270, 110, 0, 0, 200, 40, 200, 40);
+					imagedestroy($sunglasses);
+				}
+				if ($data['join'] === 'true') {
+					$join = imagecreatefrompng('public/img/thugjoin.png');
+					imagecopyresampled($t, $join, 380, 230, 0, 0, 100, 81, 100, 81);
+					imagedestroy($join);
+				}
 				$path = 'public/uploads/img_' . date('Y-m-d-H-i-s') . '_' . uniqid() . '.png';
 				imagepng($t, $path);
 				$this->save_image($path);
-				imagedestroy($sunglasses);
-				imagedestroy($join);
 				imagedestroy($t);
 				return $path;
 			}
