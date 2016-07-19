@@ -21,7 +21,6 @@
 					<video id="video"></video>
 					<img class="thug sunglass"src="/public/img/thugsunglasses.png"/>
 					<img class="thug join"src="/public/img/thugjoin.png"/>
-					<!--<img class="thug chaine"src="/public/img/thugchaine.png"/>-->
 				</div>
 				<div id="canvas-container">
 					<canvas id="canvas"></canvas>
@@ -39,17 +38,18 @@
 						<button id="upload">Upload</button>
 						<label><input type="checkbox" id="sunglasses" value="sunglasses"> Sunglasses</label>
 						<label><input type="checkbox" id="join" value="join"> Join</label>
-						<label><input type="checkbox" id="collier" value="collier"> Collier</label>
 					</div>
 				</div>
 			</article>
-			<aside id="sidebar">
+			<aside>
 				<h3>Mes images</h3>
+				<div id="sidebar">
 				<?php 
 					foreach($images as $image) {
 						echo '<img data-id="' . $image['id'].'" class="thumbnail" src="' . $image['path'] . '"/>';
 					}
 				?>
+				</div>
 			</aside>
 		</div>
 		 <footer>footer</footer>
