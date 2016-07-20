@@ -6,22 +6,39 @@ include 'app/Image.class.php';
 session_start();
 // Views
 Router::get('/', function() {
+	if (!isset($_SESSION['username'])) {
+		header('Location: http://localhost:8080/login');
+	}
 	$image = new Image();
 	$images = $image->get_user_image();
 	include('public/views/home.php');
 });
 Router::get('/gallery', function() {
+	if (!isset($_SESSION['username'])) {
+		header('Location: http://localhost:8080/login');
+	}
 	$image = new Image();
 	$images = $image->get_images();
 	include('public/views/gallery.php');
 });
 Router::get('/login', function() {
-	echo 'home';
+	if (isset($_SESSION['username'])) {
+		header('Location: http://localhost:8080');
+	}
+	include('public/views/login.php');
 });
 Router::get('/register', function() {
-	echo 'home';
+	if (isset($_SESSION['username'])) {
+		header('Location: http://localhost:8080');
+	}
+	include('public/views/register.php');
 });
-
+Router::get('/forgotten', function() {
+	if (isset($_SESSION['username'])) {
+		header('Location: http://localhost:8080');
+	}
+	include('public/views/forgotten.php');
+});
 
 //Users
 Router::post('/user/register', function() {
@@ -33,9 +50,9 @@ Router::post('/user/register', function() {
 
 	$user = new User();
 	if ($user->register($data)) {
-		echo 'register';
+		echo 'true';
 	} else {
-		echo 'FAIL register';
+		echo 'false';
 	}
 });
 Router::get('/user/verify/:id', function($id) {
@@ -44,11 +61,8 @@ Router::get('/user/verify/:id', function($id) {
 		];
 
 	$user = new User();
-	if ($user->verify($data)) {
-		echo 'verify';
-	} else {
-		echo 'FAIL verify';
-	}
+	$user->verify($data);
+	header('Location: http://localhost:8080/login');
 });
 Router::post('/user/login', function() {
 	$data = [
@@ -58,9 +72,9 @@ Router::post('/user/login', function() {
 
 	$user = new User();
 	if ($user->login($data)) {
-		echo 'logged';
+		echo 'true';
 	} else {
-		echo 'FAIL';
+		echo 'false';
 	}
 });
 Router::post('/user/reset/:any', function($name) {
@@ -70,9 +84,9 @@ Router::post('/user/reset/:any', function($name) {
 
 	$user = new User();
 	if ($user->reset_password_send($data)) {
-		echo 'reset';
+		echo 'true';
 	} else {
-		echo 'FAIL';
+		echo 'false';
 	}
 });
 Router::get('/user/reset/:id', function($id) {
@@ -81,16 +95,13 @@ Router::get('/user/reset/:id', function($id) {
 		];
 
 	$user = new User();
-	if ($user->reset_password($data)) {
-		echo 'reset';
-	} else {
-		echo 'FAIL';
-	}
+	$user->reset_password($data);
+	header('Location: http://localhost:8080/login');
 });
 Router::get('/user/logout', function() {
 	$user = new User();
 	$user->logout();
-	echo 'logout';
+	header('Location: http://localhost:8080/login');
 });
 
 //Images
