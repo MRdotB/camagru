@@ -11,9 +11,9 @@ body {
 	position: relative;
 }
 
-.gallery--modif--op0 {
+.gallery--modifier {
+	opacity:0;
 	display: none;
-	opacity: 0;
 }
 .rack {
 	display: flex;
@@ -78,7 +78,7 @@ header {
 .chaine {
 
 }
-.hide {
+.gallery--modifier {
 	opacity: 0;
 }
 .thumbnail {
@@ -124,4 +124,32 @@ header, footer {
 		max-height: 50px;
 	}
 }
+.full {
+	height: 100%;
+}
+.login-page {
+	display: flex;
+	flex-direction: row;
+	height:100%;
+	background-color: #eee;
+}
 
+.login-form {
+	width: 480px;
+	margin: auto;
+}
+
+form {
+	width: 100%;
+	background: #fff;
+	border-radius: 4px;
+	padding: 20px;
+}
+
+form input, form button {
+	width: 100%;
+	margin: 5px 0;
+}
+#err {
+color: red;
+}
