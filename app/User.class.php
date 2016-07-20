@@ -24,7 +24,7 @@ class User {
 			$verif_link = mt_rand();
 			$stmt = $this->db->prepare("INSERT INTO Users(username ,email, password, verif_link)
 				VALUES(:username, :email, :password, :verif_link)");
-			$stmt->bindparam(':username', $data['username']);
+			$stmt->bindparam(':username', strip_tags($data['username']));
 			$stmt->bindparam(':email', $data['email']);
 			$stmt->bindparam(':password', $data['password']);
 			$stmt->bindparam(':verif_link', $verif_link);
