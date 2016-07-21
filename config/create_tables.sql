@@ -34,11 +34,8 @@ CREATE TABLE `Like` (
 );
 
 ALTER TABLE `Images` ADD CONSTRAINT `images_fk0` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`);
-
-ALTER TABLE `Comments` ADD CONSTRAINT `comments_fk0` FOREIGN KEY (`image_id`) REFERENCES `Images`(`id`);
-
-ALTER TABLE `Comments` ADD CONSTRAINT `comments_fk1` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`);
-
-ALTER TABLE `Like` ADD CONSTRAINT `like_fk0` FOREIGN KEY (`image_id`) REFERENCES `Images`(`id`);
-
-ALTER TABLE `Like` ADD CONSTRAINT `like_fk1` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`);
+ALTER TABLE `Comments` ADD CONSTRAINT `comments_fk0` FOREIGN KEY (`image_id`) REFERENCES `Images`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Comments` ADD CONSTRAINT `comments_fk1` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Like` ADD CONSTRAINT `like_fk0` FOREIGN KEY (`image_id`) REFERENCES `Images`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Like` ADD CONSTRAINT `like_fk1` FOREIGN KEY (`user_id`) REFERENCES `Users`(`id`) ON DELETE CASCADE;
+ALTER TABLE `Like` ADD CONSTRAINT `like_fk2` UNIQUE(user_id, image_id);
