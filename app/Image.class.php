@@ -21,6 +21,18 @@ Class Image {
 			return false;
 		}
 	}
+	public function get_image($id) {
+		try {
+			$stmt = $this->db->prepare("SELECT * FROM Images WHERE id=:id LIMIT 1");
+			$stmt->bindparam(':id', $id);
+			$stmt->execute(); 
+			$image = $stmt->fetch(PDO::FETCH_ASSOC);
+			return $image;
+		} catch(PDOException $e) {
+			echo $e->getMessage();
+			return false;
+		}
+	}
 
 	public function get_user_image() {
 		try {
