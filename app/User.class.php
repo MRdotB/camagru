@@ -17,8 +17,7 @@ class User {
 			if (!preg_match('/^[A-Za-z][A-Za-z0-9]{5,31}$/', $data['username'])
 				|| !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/', $data['password'])
 				|| !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-				echo 'error';
-				return ;
+				return false;
 			}
 			$data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 			$verif_link = mt_rand();
