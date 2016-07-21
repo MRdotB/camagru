@@ -6,15 +6,7 @@
 		<title>Camagru</title>
 	</head>
 	<body>
-		<header>
-			<div class="rack">
-				<h1 id="logo">Camagru</h1>
-				<div id="action">
-					<a href="/profile">Profile</a>
-					<a href="/user/logout">logout</a>
-				</div>
-			</div>
-		</header>
+		<?php include('public/views/header.php');?>
 		<div id='main'>
 			<article id="article">
 				<div id="video-container">
@@ -35,7 +27,7 @@
 					</div>
 					<div id="step2" class="hide">
 						<button class="hide" id="shoot">Prendre une photo</button>
-						<button id="upload">Upload</button>
+						<button style="display:none;" id="upload">Upload</button>
 						<label><input type="checkbox" id="sunglasses" value="sunglasses"> Sunglasses</label>
 						<label><input type="checkbox" id="join" value="join"> Join</label>
 					</div>
@@ -52,7 +44,7 @@
 				</div>
 			</aside>
 		</div>
-		 <footer>footer</footer>
+		 <footer>bchaleil</footer>
 		<script src="/public/js/main.js"></script>
 	</body>
 </html>
