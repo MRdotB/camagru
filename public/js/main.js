@@ -35,7 +35,7 @@
 				video.play();
 			},
 			function(err) {
-				console.log("An error occured! " + err);
+				//console.log("An error occured! " + err);
 			}
 		);
 
@@ -70,9 +70,10 @@
 				var img = document.createElement("img");
 				img.src = data.path;
 				img.className = 'thumbnail';
+				img.setAttribute('data-id', data.id);
 				sidebar.insertBefore(img, sidebar.firstChild);
 			} else {
-				console.log(new Error(xhr.responseBody));
+				//console.log(new Error(xhr.responseBody));
 			}
 		};
 
@@ -80,8 +81,8 @@
 			formData.append('pictures[]', blob, 'blob.png');
 			formData.append('sunglass', sunglasses.checked);
 			formData.append('join', join.checked);
-			console.log('sun', sunglasses.checked);
-			console.log('join', join.checked);
+			//console.log('sun', sunglasses.checked);
+			//console.log('join', join.checked);
 			xhr.open('POST', '/image/upload', true);
 			xhr.send(formData);
 		});
@@ -89,6 +90,7 @@
 
 	function handleImage(e){
 		webcam.style.opacity = 0;
+		upload.style.display = 'inline';
 		document.getElementById('video-container').style.opacity = 0;
 		document.getElementById('step2').style.opacity = 1;
 		var reader = new FileReader();
@@ -115,6 +117,7 @@
 		e.preventDefault();
 	}, false);
 	shoot.addEventListener('click', function(e){
+		upload.style.display = 'inline';
 		takepicture();
 		e.preventDefault();
 	}, false);
@@ -163,7 +166,7 @@
 			if (xhr.status >= 200 && xhr.status < 400) {
 				target.parentNode.removeChild(target);
 			} else {
-				console.log('error');
+				//console.log('error');
 			}
 		};
 

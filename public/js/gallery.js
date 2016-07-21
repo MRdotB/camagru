@@ -51,10 +51,10 @@
 		if (!isNaN(tar.innerHTML)) {
 			setActive(parseInt(tar.innerHTML, 10));
 			displayBook(tar.innerHTML);
-		} else if (tar.innerHTML === 'chevron_left' && current) {
+		} else if (tar.innerHTML === '←' && current) {
 			setActive(--current);
 			displayBook(current);
-		} else if (tar.innerHTML === 'chevron_right' && current < pagination.childElementCount - 3) {
+		} else if (tar.innerHTML === '→' && current < pagination.childElementCount - 3) {
 			setActive(++current);
 			displayBook(current);
 		}
